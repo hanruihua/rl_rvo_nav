@@ -1,0 +1,17 @@
+world:
+  world_height: 10
+  world_width: 10
+  step_time: 0.1
+
+robots:
+  robot_mode: 'diff'  # omni or diff
+  radius_list: [0.2, 0.2]  # first one is the default radius under other init_mode
+  vel_max: [1.5, 1.5]
+  radius_exp: 0.1
+  interval: 1 
+  square: [0, 0, 10, 10]
+  circular: [5, 5, 4]
+
+# obs_lines:
+#   number: 2
+
