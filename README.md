@@ -4,20 +4,20 @@ The source code of the paper "Reinforcement Learned Distributed Multi-Robot Navi
 
 ## Prerequisites
 
-### Install the [intelligent-robot-simulator](https://github.com/hanruihua/intelligent-robot-simulator)
-
-This repository is a simple 2D robot simulator based on python. 
+- Pytorch >= 1.6.0
+- [intelligent-robot-simulator](https://github.com/hanruihua/intelligent-robot-simulator) == v2.5
 
 ```
 git clone -b v2.5 https://github.com/hanruihua/intelligent-robot-simulator.git
 cd intelligent-robot-simulator
-
+pip install -e .
 ```
-
-### Install the pytorch
-
-
 
 ## Installation
 
+```
+git clone https://github.com/hanruihua/rl_rvo_nav.git
+cd rl_rvo_nav
+./setup.sh
+```
 
