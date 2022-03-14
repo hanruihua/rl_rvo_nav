@@ -4,7 +4,7 @@ from pathlib import Path
 
 world_name = 'gym_test_world.yaml'
 
-env = gym.make('mrnav-v0', world_name=world_name, robot_number=10, robot_init_mode=3, random_bear=True)
+env = gym.make('mrnav-v1', world_name=world_name, robot_number=10, robot_init_mode=3, random_bear=True)
 env.reset()
 
 for i in range(300):
