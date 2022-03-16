@@ -3,13 +3,13 @@
 The source code of the paper "Reinforcement Learned Distributed Multi-Robot Navigation with Reciprocal Velocity Obstacle Shaped Rewards"
 
 
-Circle 10                  |   Circle 14        |   Circle 16       | Circle 20 
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![](rl_rvo_nav/gif/rl_rvo_cir_10.gif)  |  ![](rl_rvo_nav/gif/rl_rvo_cir_14.gif) | ![](rl_rvo_nav/gif/rl_rvo_cir_16.gif) | ![](rl_rvo_nav/gif/rl_rvo_cir_20.gif)
+Circle 10                  |   Circle 16       | Circle 20 
+:-------------------------:|:-------------------------:|:-------------------------:
+![](rl_rvo_nav/gif/rl_rvo_cir_10.gif)  | ![](rl_rvo_nav/gif/rl_rvo_cir_16.gif) | ![](rl_rvo_nav/gif/rl_rvo_cir_20.gif)
 
-Random 10             |   Random 14         | Random 16  | Circle 20 
-:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
-![](rl_rvo_nav/gif/rl_rvo_random_10.gif)  |  ![](rl_rvo_nav/gif/rl_rvo_random_14.gif) | ![](rl_rvo_nav/gif/rl_rvo_random_16.gif) | ![](rl_rvo_nav/gif/rl_rvo_random_20.gif)
+Random 10                  | Random 16  | Circle 20 
+:-------------------------:|:-------------------------:|:-------------------------:
+![](rl_rvo_nav/gif/rl_rvo_random_10.gif) | ![](rl_rvo_nav/gif/rl_rvo_random_16.gif) | ![](rl_rvo_nav/gif/rl_rvo_random_20.gif)
 
 
 
