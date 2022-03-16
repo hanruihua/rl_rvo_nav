@@ -11,8 +11,6 @@ Random 10                  | Random 16  | Circle 20
 :-------------------------:|:-------------------------:|:-------------------------:
 ![](rl_rvo_nav/gif/rl_rvo_random_10.gif) | ![](rl_rvo_nav/gif/rl_rvo_random_16.gif) | ![](rl_rvo_nav/gif/rl_rvo_random_20.gif)
 
-
-
 ## Prerequisites
 
 - Pytorch >= 1.6.0
