@@ -114,21 +114,10 @@ class multi_ppo:
         self.vf_optimizer = Adam(self.ac.v.parameters(), lr=vf_lr)
 
         if con_train:
-
             check_point = torch.load(load_fname)
-            # self.ac = Net()
             self.ac.load_state_dict(check_point['model_state'], strict=True)
             self.ac.train()
             # self.ac.eval()
-
-            # self.pi_optimizer = Adam(self.ac.pi.parameters(), lr=pi_lr)
-            # self.vf_optimizer = Adam(self.ac.v.parameters(), lr=vf_lr)
-
-            # self.pi_optimizer.load_state_dict(check_point['pi_optimizer'])
-            # self.vf_optimizer.load_state_dict(check_point['vf_optimizer'])
-
-            # self.pi_optimizer.param_groups[0]['lr'] = pi_lr
-            # self.vf_optimizer.param_groups[0]['lr'] = vf_lr
 
         # parameter
         self.epoch = train_epoch
@@ -171,7 +160,6 @@ class multi_ppo:
 
         obs_list, ep_ret_list, ep_len_list = self.env.reset(mode=self.reset_mode), [0] * self.robot_num, [0] * self.robot_num
         ep_ret_list_mean = [[] for i in range(self.robot_num)]
-        # ep_ret_list_sum = [[] for i in range(self.robot_num)]
 
         for epoch in range(self.epoch):
             start_time = time.time()
@@ -240,9 +228,8 @@ class multi_ppo:
                         self.buf_list[i].finish_path(0)
 
                 elif terminal:
-                    success_flag = False
-                    for i in range(self.robot_num):
 
+                    for i in range(self.robot_num):
                         if done_list[i] or ep_len_list[i] > self.max_ep_len:
                         
                             self.env.reset_one(i)
@@ -274,7 +261,6 @@ class multi_ppo:
             # update
             # self.update()
             data_list = [buf.get() for buf in self.buf_list]
-
             if self.mpi:
                 rank_data_list = self.comm.gather(data_list, root=0)
 
@@ -283,9 +269,7 @@ class multi_ppo:
                         self.update(data_list)
             else:
                 self.update(data_list)
-            # update_thread = threading.Thread(target=self.update, args=[data_list])
-            # update_thread.start()
-
+    
             # animate
             # if epoch == 1:
             #     self.env.create_animate(self.save_path+'figure/')
@@ -297,8 +281,6 @@ class multi_ppo:
                 time_cost = time.time()-start_time 
                 print('time cost in one epoch', time_cost, 'estimated remain time', time_cost*(self.epoch-epoch)/3600, 'hours' )
             
-
-
     def update(self, data_list):
         
         randn = np.arange(self.robot_num)
