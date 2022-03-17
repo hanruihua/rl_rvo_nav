@@ -1,7 +1,8 @@
 # rl_rvo_nav
 
-The source code of the paper "Reinforcement Learned Distributed Multi-Robot Navigation with Reciprocal Velocity Obstacle Shaped Rewards"
+## Introduction
 
+This repository is the source code of the RA-Letter paper "Reinforcement Learned Distributed Multi-Robot Navigation with Reciprocal Velocity Obstacle Shaped Rewards"
 
 Circle 10                  |   Circle 16       | Circle 20 
 :-------------------------:|:-------------------------:|:-------------------------:
@@ -44,22 +45,55 @@ cd rl_rvo_nav
 python train_process.py --use_gpu
 ```
 
+or
+
+```
+python train_process_s1.py
+```
+
 - Second state: continue to train in circle scenario with 10 robots.
 
 ```
-python train_process.py --con_train --robot_number 10 --train_epoch 2000 --use_gpu
+python train_process.py --robot_number 10 --train_epoch 2000 --load_name YOUR_MODEL_PATH --use_gpu --con_train
+```
+
+or
+
+```
+python train_process_s2.py
 ```
 
 ## Policy Test
 
+You can test the policy trained from the previous steps by following command:
 
+```
+python policy_test.py --robot_number 10 --dis_mode 3 --model_name YOUR_MODEL_NAME --render
+```
 
+**Note1:** dis_mode, 3, circle scenario; 2 random scenario
+**Note2:** YOUR_MODEL_NAME refer to the path and name of the check point file in the *policy_train/model_save* folder
 
 ## Pretrained model
 
+We provide the pre_trained model, you can test this model by following command:
 
+```
+python policy_test_pre_train.py --render
+```
 
+## Citation
 
+If you find this repository or paper is helpful, you can star this repository and cite our paper:
+
+```
+
+```
+
+## Author
+
+Han Ruihua
+Contact: hanrh@connect.hku.hk
 
 
 
