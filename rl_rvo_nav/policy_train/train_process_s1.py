@@ -82,7 +82,7 @@ par_train.add_argument('--save_result', type=bool, default=True)
 par_train.add_argument('--lr_decay_epoch', type=int, default=1000)
 par_train.add_argument('--max_update_num', type=int, default=10)
 
-args = parser.parse_args()
+args = parser.parse_args(['--train_epoch', '250', '--use_gpu'])
 
 # decide the model path and model name 
 model_path_check = args.save_path + args.save_name + str(args.robot_number) + '_{}'

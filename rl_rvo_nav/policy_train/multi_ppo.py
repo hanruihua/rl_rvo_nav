@@ -6,7 +6,7 @@ import scipy
 import scipy.signal
 import time
 import os
-from drl_rvo_nav_full.policy_test.post_train import post_train
+from rl_rvo_nav.policy_test.post_train import post_train
 import threading
 from mpi4py import MPI
 
@@ -161,7 +161,7 @@ class multi_ppo:
         obs_list, ep_ret_list, ep_len_list = self.env.reset(mode=self.reset_mode), [0] * self.robot_num, [0] * self.robot_num
         ep_ret_list_mean = [[] for i in range(self.robot_num)]
 
-        for epoch in range(self.epoch):
+        for epoch in range(self.epoch + 1):
             start_time = time.time()
             print('current epoch', epoch)
 
@@ -171,7 +171,7 @@ class multi_ppo:
 
             for t in range(self.steps_per_epoch):
 
-                if self.render and (epoch % self.render_freq == 0 or epoch == self.epoch-1):
+                if self.render and (epoch % self.render_freq == 0 or epoch == self.epoch):
                     self.env.render(save=self.save_figure, path=self.figure_save_path, i = t )
 
                 # if self.save_figure and epoch == 1:
@@ -241,7 +241,7 @@ class multi_ppo:
                     
                     obs_list = self.env.ir_gym.env_observation()
 
-            if (epoch % self.save_freq == 0) or (epoch == self.epoch-1):
+            if (epoch % self.save_freq == 0) or (epoch == self.epoch):
                 self.save_model(epoch) 
 
                 if self.save_result and epoch != 0:
