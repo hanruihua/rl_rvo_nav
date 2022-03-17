@@ -98,8 +98,6 @@ class reciprocal_vel_obs:
 
         x, y, vx, vy, r = robot_state[0:5]
 
-        # r = r + 0.2
-
         apex = [0, 0]
 
         theta1 = atan2(line[0][1] - y, line[0][0] - x)

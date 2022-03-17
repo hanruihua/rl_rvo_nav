@@ -3,7 +3,7 @@ from math import sqrt, atan2, asin, sin, pi, cos, inf
 import numpy as np
 
 class rvo_inter(reciprocal_vel_obs):
-    def __init__(self, neighbor_region=5, neighbor_num=10, vxmax=1.5, vymax=1.5, acceler=0.5, env_train=True, exp_radius=0.2, ctime_threshold=5, ctime_line_threshold=1, obs_mode=0):
+    def __init__(self, neighbor_region=5, neighbor_num=10, vxmax=1.5, vymax=1.5, acceler=0.5, env_train=True, exp_radius=0.2, ctime_threshold=5, ctime_line_threshold=1):
         super(rvo_inter, self).__init__(neighbor_region, vxmax, vymax, acceler)
 
         self.env_train = env_train
@@ -11,7 +11,6 @@ class rvo_inter(reciprocal_vel_obs):
         self.nm = neighbor_num
         self.ctime_threshold = ctime_threshold
         self.ctime_line_threshold = ctime_line_threshold
-        self.obs_mode = obs_mode
 
     def config_vo_inf(self, robot_state, nei_state_list, obs_cir_list, obs_line_list, action=np.zeros((2,)), **kwargs):
         # mode: vo, rvo, hrvo
@@ -147,11 +146,8 @@ class rvo_inter(reciprocal_vel_obs):
         input_exp_time = 1 / (exp_time+0.2)
         min_dis = real_dis_mr-mr
 
-        if self.obs_mode == 0:
-            observation_vo = [vo[0], vo[1], cos(vo[2]), sin(vo[2]), cos(vo[3]), sin(vo[3]), min_dis, input_exp_time]
-        elif self.obs_mode == 1:
-            observation_vo = [mx, my, mvx, mvy, mr]
-
+        observation_vo = [vo[0], vo[1], cos(vo[2]), sin(vo[2]), cos(vo[3]), sin(vo[3]), min_dis, input_exp_time]
+        
         return [observation_vo, vo_flag, exp_time, collision_flag, min_dis]
 
     def config_vo_line2(self, robot_state, line, action, **kwargs):
@@ -204,15 +200,9 @@ class rvo_inter(reciprocal_vel_obs):
         input_exp_time = 1 / (exp_time+0.2)
         min_dis = p2s
 
-        if self.obs_mode == 0:
-            observation_vo = [vo[0], vo[1], cos(vo[2]), sin(vo[2]), cos(vo[3]), sin(vo[3]), min_dis, input_exp_time]
-        elif self.obs_mode == 1:
-            observation_vo = [vo[0], vo[1], vo[2], vo[3], p2s_angle, p2s, input_exp_time]
-        elif self.obs_mode == 2:
-            observation_vo = [vo[0], vo[1], cos(vo[2]), sin(vo[2]), cos(vo[3]), sin(vo[3]), p2s_angle, min_dis]
-
+        observation_vo = [vo[0], vo[1], cos(vo[2]), sin(vo[2]), cos(vo[3]), sin(vo[3]), min_dis, input_exp_time]
+        
         return [observation_vo, vo_flag, exp_time, collision_flag, min_dis]
-
 
     def vo_out_jud(self, vx, vy, vo):
         

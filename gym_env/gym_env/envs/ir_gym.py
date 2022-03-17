@@ -8,8 +8,9 @@ class ir_gym(env_base):
     def __init__(self, world_name, neighbors_region=5, neighbors_num=10, vxmax = 1.5, vymax = 1.5, env_train=True, acceler = 0.5, **kwargs):
         super(ir_gym, self).__init__(world_name=world_name, **kwargs)
 
-        self.obs_mode = kwargs.get('obs_mode', 0)    # 0 drl_rvo, 1 drl_nrvo
-        self.reward_mode = kwargs.get('reward_mode', 0)
+        # self.obs_mode = kwargs.get('obs_mode', 0)    # 0 drl_rvo, 1 drl_nrvo
+        # self.reward_mode = kwargs.get('reward_mode', 0)
+
         self.radius_exp = kwargs.get('radius_exp', 0.2)
 
         self.env_train = env_train
@@ -17,7 +18,7 @@ class ir_gym(env_base):
         self.nr = neighbors_region
         self.nm = neighbors_num
 
-        self.rvo = rvo_inter(neighbors_region, neighbors_num, vxmax, vymax, acceler, env_train, self.radius_exp, obs_mode=self.obs_mode)
+        self.rvo = rvo_inter(neighbors_region, neighbors_num, vxmax, vymax, acceler, env_train, self.radius_exp)
 
         self.observation_space = spaces.Box(-np.inf, np.inf, shape=(5,), dtype=np.float32)
         self.action_space = spaces.Box(low=np.array([-1, -1]), high=np.array([1, 1]), dtype=np.float32)
@@ -26,10 +27,8 @@ class ir_gym(env_base):
         self.acceler = acceler
         self.arrive_flag_cur = False
 
-        if self.obs_mode == 0:
-            self.rvo_state_dim = 8
-        elif self.obs_mode == 1:
-            self.rvo_state_dim = 5
+        self.rvo_state_dim = 8
+        
 
     def cal_des_omni_list(self):
         des_vel_list = [robot.cal_des_vel_omni() for robot in self.robot_list]
@@ -56,24 +55,15 @@ class ir_gym(env_base):
         dis_des_reward = - dis_des / max_dis_des #  (0-1)
         exp_time_reward = - 0.2/(min_exp_time+0.2) # (0-1)
         
-        if self.reward_mode == 0:
-            if vo_flag:
-                rvo_reward = p2 + p3 * dis_des_reward + p4 * exp_time_reward
-            else:
-                rvo_reward = p5 + p6 * dis_des_reward
+        # rvo reward    
+        if vo_flag:
+            rvo_reward = p2 + p3 * dis_des_reward + p4 * exp_time_reward
+            
+            if min_exp_time < 0.1:
+                rvo_reward = p2 + p1 * p4 * exp_time_reward
+        else:
+            rvo_reward = p5 + p6 * dis_des_reward
         
-        if self.reward_mode == 1:
-            if vo_flag:
-                rvo_reward = p2 + p3 * dis_des_reward + p4 * exp_time_reward
-                
-                if min_exp_time < 0.1:
-                    rvo_reward = p2 + p1 * p4 * exp_time_reward
-            else:
-                rvo_reward = p5 + p6 * dis_des_reward
-        
-        if self.reward_mode == 2:
-            rvo_reward = 0
-
         rvo_reward = np.round(rvo_reward, 2)
 
         return rvo_reward
@@ -109,12 +99,8 @@ class ir_gym(env_base):
         cur_vel = np.squeeze(robot.vel_omni)
         radius = robot.radius_collision* np.ones(1,)
 
-        if self.obs_mode == 0:
-            propri_obs = np.concatenate([ cur_vel, des_vel, radian, radius]) 
-        elif self.obs_mode == 1:
-            propri_obs = np.array([ robot.state[0, 0], robot.state[1, 0], cur_vel[0], cur_vel[1], 
-            robot.radius_collision, robot.goal[0, 0], robot.goal[1, 0], des_vel[0], des_vel[1], robot.state[2, 0] ] ) 
-    
+        propri_obs = np.concatenate([ cur_vel, des_vel, radian, radius]) 
+        
         if len(obs_vo_list) == 0:
             exter_obs = np.zeros((self.rvo_state_dim,))
         else:
@@ -139,13 +125,7 @@ class ir_gym(env_base):
         collision_reward = p7 if collision_flag else 0
         arrive_reward = p8 if arrive_reward_flag else 0
         time_reward = 0
-
-        if self.reward_mode == 2:
-            collision_reward = -20 if collision_flag else 0
-            arrive_reward = 15 if arrive_reward_flag else 0
-            time_reward = -0.5 + 0.1*min_exp_time if min_exp_time < 5 else 0
-            # dis2goal_reward = 0.1 * dis2goal
-
+        
         mov_reward = collision_reward + arrive_reward + time_reward
 
         return mov_reward
@@ -179,19 +159,13 @@ class ir_gym(env_base):
         radian = robot.state[2]
         radius = robot.radius_collision* np.ones(1,)
 
-        # propri_obs = np.concatenate([ cur_vel, des_vel, radian, radius])
-        
         if len(obs_vo_list) == 0:
             exter_obs = np.zeros((self.rvo_state_dim,))
         else:
             exter_obs = np.concatenate(obs_vo_list) # vo list
 
-        if self.obs_mode == 0:
-            propri_obs = np.concatenate([ cur_vel, des_vel, radian, radius]) 
-        elif self.obs_mode == 1:
-            propri_obs = np.array([ robot.state[0, 0], robot.state[1, 0], cur_vel[0], cur_vel[1], 
-            robot.radius_collision, robot.goal[0, 0], robot.goal[1, 0], des_vel[0], des_vel[1], robot.state[2, 0] ] ) 
-
+        
+        propri_obs = np.concatenate([ cur_vel, des_vel, radian, radius]) 
         observation = np.round(np.concatenate([propri_obs, exter_obs]), 2)
 
         return observation
