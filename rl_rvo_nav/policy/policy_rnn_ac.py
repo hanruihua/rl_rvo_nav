@@ -91,9 +91,6 @@ class rnn_Reader(nn.Module):
 
         des_dim = state_dim + hidden_dim
         self.ln = nn.LayerNorm(des_dim)
-        # self.dp = nn.Dropout(p=drop_p)
-
-        # self.conv = nn.Conv1d(1, 1, 2, stride=2)
 
         if use_gpu: 
             self.rnn_net = self.rnn_net.cuda()
@@ -120,18 +117,12 @@ class rnn_Reader(nn.Module):
             output, (hn, cn) = self.rnn_net(rnn_input)
     
         hnv = torch.squeeze(hn)
-        # m = nn.Dropout(p=self.drop_p)
-        # obs = m(obs)
-        # hnv = self.dp(hnv)
         if self.mode == 'biGRU':
-            # hnv = torch.reshape(hnv, (self.hidden_dim*2,))
             hnv = torch.sum(hnv, 0)
         
         rnn_obs = torch.cat((robot_state, hnv))
-
         rnn_obs = self.ln(rnn_obs)
 
-    
         return rnn_obs  
 
     def obs_rnn_list(self, obs_tensor_list):
@@ -147,7 +138,6 @@ class rnn_Reader(nn.Module):
             mov_tensor = obs_tensor[self.state_dim:]
             mov_tensor_len = int(len(mov_tensor)/self.input_dim)
             re_mov_tensor = torch.reshape(mov_tensor, (mov_tensor_len, self.input_dim)) 
-            # mov_tensor_flip = torch.flip(re_mov_tensor, [0])
             return re_mov_tensor
         
         re_mov_list = list(map(lambda o: obs_tensor_reform(o), obs_tensor_list))
@@ -169,15 +159,9 @@ class rnn_Reader(nn.Module):
 
         if self.mode == 'biGRU':
             hnv = torch.sum(hnv, 0)
-        # hnv = self.dp(hnv)
+        
         fc_obs_batch = torch.cat((robot_state_batch, hnv), 1)
-
         fc_obs_batch = self.ln(fc_obs_batch)
-
-        # fc_obs_batch = torch.unsqueeze(fc_obs_batch, 1)
-        # fc_cnn_obs_batch = self.conv(fc_obs_batch)
-
-        # fc_cnn_obs_batch = torch.squeeze(fc_cnn_obs_batch)
 
         return fc_obs_batch
 
@@ -224,24 +208,15 @@ class GaussianActor(Actor):
 
         if isinstance(obs, list):
             obs = self.rnn_reader.obs_rnn_list(obs)
-            # m = nn.Dropout(p=self.drop_p)
-            # obs = m(obs)
             net_out = self.net_out(obs)
         else:
             obs = self.rnn_reader.obs_rnn(obs)
-            # m = nn.Dropout(p=self.drop_p)
-            # obs = m(obs)
             net_out = self.net_out(obs)
         
-        # mu = 1.5 * net_out  
         mu = net_out 
-
         std = torch.exp(self.log_std)
         std = std_factor * std
-        # std = torch.clamp(std, 0, 0.3)
-        # if self.log_std[0] != -2:
-        #     print(self.log_std)
-
+        
         return Normal(mu, std)
         
     def _log_prob_from_distribution(self, pi, act):
@@ -270,7 +245,6 @@ class Critic(nn.Module):
                 obs = self.rnn_reader.obs_rnn_list(obs)
             else:
                 obs = self.rnn_reader.obs_rnn(obs)
-
         v = torch.squeeze(self.v_net(obs), -1)
 
-        return v # Critical to ensure v has right shape.
+        return v 
