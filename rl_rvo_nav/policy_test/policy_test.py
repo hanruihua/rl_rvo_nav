@@ -1,26 +1,44 @@
-from drl_rvo_nav_full.policy_test.post_train import post_train
 import gym
 import gym_env
 from pathlib import Path
 import pickle
+import sys
+from rl_rvo_nav.policy_test.post_train import post_train
+import argparse
 
-epoch = 250
+parser = argparse.ArgumentParser(description='policy test')
+parser.add_argument('--policy_type', default='drl')
+parser.add_argument('--model_path', default='policy_train/model_save')
+parser.add_argument('--model_name', default='r4_0/r4_0_check_point_250.pt')
+parser.add_argument('--arg_name', default='r4_0/r4_0')
+parser.add_argument('--world_name', default='policy_test_world.yaml')  # policy_test_world_lines.yaml
+parser.add_argument('--render', action='store_true')
+parser.add_argument('--robot_number', type=int, default='6')
+parser.add_argument('--num_episodes', type=int, default='100')
+parser.add_argument('--dis_mode', type=int, default='3')
+parser.add_argument('--save', action='store_true')
+parser.add_argument('--full', action='store_true')
+parser.add_argument('--show_traj', action='store_true')
+parser.add_argument('--once', action='store_true')
 
-cur_path = Path(__file__).parent
-save_name = 'r10_0'
-save_path_string = str(cur_path /'model_save'/save_name/save_name)
+policy_args = parser.parse_args()
 
-fname_model = save_path_string +'_check_point_'+ str(epoch)+ '.pt' 
-arg_model = save_path_string
+cur_path = Path(__file__).parent.parent 
+model_base_path = str(cur_path) + '/' + policy_args.model_path
+args_path = model_base_path + '/' + policy_args.arg_name
 
-world_path = Path('model_save')
-world_path_str = str(world_path/save_name/save_name) + '_world.yaml'
-
-r = open(arg_model, 'rb')
+# args from train
+r = open(args_path, 'rb')
 args = pickle.load(r) 
 
-env = gym.make('mrnav-v0', world_name=world_path_str, robot_number=4, neighbors_region=args.neighbors_region, neighbors_num=3, robot_init_mode=3, env_train=False, random_bear=True, random_radius=args.random_radius, reward_parameter=args.reward_parameter, obs_mode=args.obs_mode, reward_mode=args.reward_mode)
+if policy_args.policy_type == 'drl':
+    # fname_model = save_path_string +'_check_point_250.pt'
+    fname_model = model_base_path + '/' + policy_args.model_name
+    policy_name = 'drl_rvo'
+    
+env = gym.make('mrnav-v1', world_name=policy_args.world_name, robot_number=policy_args.robot_number, neighbors_region=args.neighbors_region, neighbors_num=args.neighbors_num, robot_init_mode=policy_args.dis_mode, env_train=False, random_bear=args.random_bear, random_radius=args.random_radius, reward_parameter=args.reward_parameter, obs_mode=args.obs_mode, reward_mode=args.reward_mode, goal_threshold=0.2, full=policy_args.full)
 
-pt = post_train(env, num_episodes=100, reset_mode=2, render=True, std_factor=0.01, acceler_vel=0.5, max_ep_len=300)
-pt.policy_test('drl', fname_model, save_name, result_path=str(cur_path), result_name='/result.txt')
+policy_name = policy_name + '_' + str(policy_args.robot_number) + '_dis' + str(policy_args.dis_mode)
 
+pt = post_train(env, num_episodes=policy_args.num_episodes, reset_mode=policy_args.dis_mode, render=policy_args.render, std_factor=0.00001, acceler_vel=1.0, max_ep_len=300, neighbors_region=args.neighbors_region, neighbor_num=args.neighbors_num, args=args, save=policy_args.save, show_traj=policy_args.show_traj, figure_format='eps')
+pt.policy_test(policy_args.policy_type, fname_model, policy_name, result_path=str(cur_path), figure_save_path=cur_path / 'figure' , ani_save_path=cur_path / 'gif', result_name='/result.txt', once=policy_args.once)
