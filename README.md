@@ -2,7 +2,9 @@
 
 ## Introduction
 
-This repository is the source code of the RA-Letter paper "Reinforcement Learned Distributed Multi-Robot Navigation with Reciprocal Velocity Obstacle Shaped Rewards"
+This repository is the source code of the paper "Reinforcement Learned Distributed Multi-Robot Navigation with Reciprocal Velocity Obstacle Shaped Rewards" [RA-Letter] 
+
+**[`Video`](https://www.youtube.com/watch?v=-8a8Vqm6epM)**
 
 Circle 10                  |   Circle 16       | Circle 20 
 :-------------------------:|:-------------------------:|:-------------------------:
@@ -84,7 +86,7 @@ python policy_test_pre_train.py --render
 
 ## Citation
 
-If you find this repository or paper is helpful, you can star this repository and cite our paper:
+If you find this code or paper is helpful, you can star this repository and cite our paper:
 
 ```
 
