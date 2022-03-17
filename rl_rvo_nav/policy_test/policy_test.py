@@ -15,7 +15,7 @@ parser.add_argument('--world_name', default='policy_test_world.yaml')  # policy_
 parser.add_argument('--render', action='store_true')
 parser.add_argument('--robot_number', type=int, default='6')
 parser.add_argument('--num_episodes', type=int, default='100')
-parser.add_argument('--dis_mode', type=int, default='3')
+parser.add_argument('--dis_mode', type=int, default='3')  # 3 circle, 2 random, 5 for corridor
 parser.add_argument('--save', action='store_true')
 parser.add_argument('--full', action='store_true')
 parser.add_argument('--show_traj', action='store_true')
