@@ -89,7 +89,15 @@ python policy_test_pre_train.py --render
 If you find this code or paper is helpful, you can star this repository and cite our paper:
 
 ```
-R. Han et al., "Reinforcement Learned Distributed Multi-Robot Navigation with Reciprocal Velocity Obstacle Shaped Rewards," in IEEE Robotics and Automation Letters, doi: 10.1109/LRA.2022.3161699.
+@ARTICLE{9740403,  
+author={Han, Ruihua and Chen, Shengduo and Wang, Shuaijun and Zhang, Zeqing and Gao, Rui and Hao, Qi and Pan, Jia},  
+journal={IEEE Robotics and Automation Letters},  
+title={Reinforcement Learned Distributed Multi-Robot Navigation with Reciprocal Velocity Obstacle Shaped Rewards},  
+year={2022}, 
+volume={}, 
+number={}, 
+pages={1-1}, 
+doi={10.1109/LRA.2022.3161699}}
 ```
 
 ## Author
