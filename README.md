@@ -102,7 +102,7 @@ doi={10.1109/LRA.2022.3161699}}
 
 ## Author
 
-Han Ruihua
+Han Ruihua  
 Contact: hanrh@connect.hku.hk
 
 
