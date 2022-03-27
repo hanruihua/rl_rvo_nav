@@ -4,7 +4,7 @@
 
 This repository is the source code of the paper "Reinforcement Learned Distributed Multi-Robot Navigation with Reciprocal Velocity Obstacle Shaped Rewards" [RA-Letter] 
 
-**[`PDF_ieee`](https://ieeexplore.ieee.org/document/9740403)** | **[`PDF_arxiv`](https://arxiv.org/pdf/2203.10229.pdf)** | **[`Video_Yotube`](https://www.youtube.com/watch?v=-8a8Vqm6epM)** | **[`Video_Bilibili`](https://www.bilibili.com/video/BV1oS4y1U71B?spm_id_from=333.999.0.0)**
+**[`PDF_ieee`](https://ieeexplore.ieee.org/document/9740403)** | **[`PDF_arxiv`](https://arxiv.org/pdf/2203.10229.pdf)** | **[`Video_Youtube`](https://www.youtube.com/watch?v=-8a8Vqm6epM)** | **[`Video_Bilibili`](https://www.bilibili.com/video/BV1oS4y1U71B?spm_id_from=333.999.0.0)**
 
 Circle 10                  |   Circle 16       | Circle 20 
 :-------------------------:|:-------------------------:|:-------------------------:
