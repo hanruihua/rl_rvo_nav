@@ -41,4 +41,4 @@ env = gym.make('mrnav-v1', world_name=policy_args.world_name, robot_number=polic
 policy_name = policy_name + '_' + str(policy_args.robot_number) + '_dis' + str(policy_args.dis_mode)
 
 pt = post_train(env, num_episodes=policy_args.num_episodes, reset_mode=policy_args.dis_mode, render=policy_args.render, std_factor=0.00001, acceler_vel=1.0, max_ep_len=300, neighbors_region=args.neighbors_region, neighbor_num=args.neighbors_num, args=args, save=policy_args.save, show_traj=policy_args.show_traj, figure_format='eps')
-pt.policy_test(policy_args.policy_type, fname_model, policy_name, result_path=str(cur_path), figure_save_path=cur_path / 'figure' , ani_save_path=cur_path / 'gif', result_name='/result.txt', once=policy_args.once)
+pt.policy_test(policy_args.policy_type, fname_model, policy_name, result_path=str(cur_path), result_name='/result.txt', figure_save_path=cur_path / 'figure' , ani_save_path=cur_path / 'gif', policy_dict=True,  once=policy_args.once)

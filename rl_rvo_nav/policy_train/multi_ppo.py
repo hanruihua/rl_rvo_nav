@@ -247,9 +247,10 @@ class multi_ppo:
                 if self.save_result and epoch != 0:
                 # if self.save_result:
                     policy_model = self.save_path + self.save_name+'_'+str(epoch)+'.pt'
+                    # policy_model = self.save_path + self.save_name+'_'+'check_point_'+ str(epoch)+'.pt'
                     result_path = self.save_path
                     policy_name = self.save_name+'_'+str(epoch)
-                    thread = threading.Thread(target=self.pt.policy_test, args=('drl', policy_model, policy_name, result_path, '/results.txt', None, False))
+                    thread = threading.Thread(target=self.pt.policy_test, args=('drl', policy_model, policy_name, result_path, '/results.txt'))
                     thread.start()
 
             mean = [round(np.mean(r), 2) for r in ep_ret_list_mean]               

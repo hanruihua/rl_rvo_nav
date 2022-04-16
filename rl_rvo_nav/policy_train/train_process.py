@@ -90,7 +90,7 @@ model_name_check = args.save_name + str(args.robot_number) +  '_{}'
 while os.path.isdir(model_path_check.format(counter)):
     counter+=1
 
-model_abs_path = model_path_check.format(counter)
+model_abs_path = model_path_check.format(counter) + '/'
 model_name = model_name_check.format(counter)
 
 load_fname = args.load_path + args.load_name

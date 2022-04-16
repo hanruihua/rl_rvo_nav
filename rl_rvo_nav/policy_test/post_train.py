@@ -30,7 +30,7 @@ class post_train:
         self.nm = neighbor_num
         self.args = args
 
-    def policy_test(self, policy_type='drl', policy_path=None, policy_name='policy', result_path=None, result_name='/result.txt', figure_save_path=None, ani_save_path=None, policy_dict=True, once=False):
+    def policy_test(self, policy_type='drl', policy_path=None, policy_name='policy', result_path=None, result_name='/result.txt', figure_save_path=None, ani_save_path=None, policy_dict=False, once=False):
         
         if policy_type == 'drl':
             model_action = self.load_policy(policy_path, self.std_factor, policy_dict=policy_dict)
@@ -123,7 +123,7 @@ class post_train:
         print( 'policy_name: '+ policy_name, ' successful rate: {:.2%}'.format(sn/self.num_episodes), "average EpLen:", mean_len, 'std length', std_len, 'average speed:', average_speed, 'std speed', std_speed)
 
 
-    def load_policy(self, filename, std_factor=1, policy_dict=True):
+    def load_policy(self, filename, std_factor=1, policy_dict=False):
 
         if policy_dict == True:
             model = rnn_ac(self.env.observation_space, self.env.action_space, self.args.state_dim, self.args.rnn_input_dim, self.args.rnn_hidden_dim, self.args.hidden_sizes_ac, self.args.hidden_sizes_v, self.args.activation, self.args.output_activation, self.args.output_activation_v, self.args.use_gpu, self.args.rnn_mode)
