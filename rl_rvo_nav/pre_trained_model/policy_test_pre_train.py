@@ -11,7 +11,7 @@ parser.add_argument('--policy_type', default='drl')
 parser.add_argument('--model_path', default='pre_trained')
 parser.add_argument('--model_name', default='pre_train_check_point_1000.pt')
 parser.add_argument('--arg_name', default='pre_train')
-parser.add_argument('--world_name', default='policy_test_world.yaml')  # policy_test_world_lines.yaml
+parser.add_argument('--world_name', default='test_world_dyna_obs.yaml')  # test_world_lines.yaml; test_world_dyna_obs.yaml
 parser.add_argument('--render', action='store_true')
 parser.add_argument('--robot_number', type=int, default='6')
 parser.add_argument('--num_episodes', type=int, default='100')

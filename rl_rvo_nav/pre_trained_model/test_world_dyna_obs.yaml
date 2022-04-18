@@ -1,0 +1,29 @@
+world:
+  world_height: 10
+  world_width: 10
+  step_time: 0.1
+
+robots:
+  robot_mode: 'diff'  # omni or diff
+  radius_list: [0.2, 0.2]  # first one is the default radius under other init_mode
+  vel_max: [1.5, 1.5]
+  radius_exp: 0.2
+  interval: 1 
+  square: [0, 0, 9, 9]
+  circular: [5, 5, 4]
+
+# obs_lines:
+#   number: 2
+
+obs_cirs:
+  number: 5
+  dist_mode: 2
+  obs_model: 'dynamic' # static, dynamic 
+  obs_step_mode: 'wander' # default, wander
+  obs_state_list: [[25, 34], [35, 26]]
+  obs_goal_list: [[45, 24], [15, 36]]
+  obs_radius_list: [0.1, 0.1]
+  obs_square: [2, 2, 8, 8]
+  obs_interval: 1
+  random_radius: False
+  vel_max: [0.3, 0.3]
