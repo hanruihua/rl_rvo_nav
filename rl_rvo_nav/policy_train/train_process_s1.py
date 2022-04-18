@@ -24,7 +24,7 @@ parser = argparse.ArgumentParser(description='drl rvo parameters')
 
 par_env = parser.add_argument_group('par env', 'environment parameters') 
 par_env.add_argument('--env_name', default='mrnav-v1')
-par_env.add_argument('--world_path', default='train_world.yaml')
+par_env.add_argument('--world_path', default='train_world.yaml') # dynamic_obs_test.yaml; train_world.yaml
 par_env.add_argument('--robot_number', type=int, default=4)
 par_env.add_argument('--init_mode', default=3)
 par_env.add_argument('--reset_mode', default=3)
