@@ -12,6 +12,3 @@ robots:
   square: [0, 0, 9, 9]
   circular: [5, 5, 4]
 
-# obs_lines:
-#   number: 2
-

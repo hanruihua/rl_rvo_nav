@@ -3,6 +3,7 @@ import gym_env
 from pathlib import Path
 
 world_name = 'gym_test_world.yaml'
+# world_name = 'dynamic_obs_test.yaml'
 
 env = gym.make('mrnav-v1', world_name=world_name, robot_number=10, robot_init_mode=3, random_bear=True)
 env.reset()
