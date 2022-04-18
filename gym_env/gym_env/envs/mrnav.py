@@ -22,7 +22,7 @@ class mrnav(gym.Env):
 
         rvo_reward_list = self.ir_gym.rvo_reward_list_cal(action)
         self.ir_gym.robot_step(action, vel_type=vel_type, stop=stop)
-
+        self.ir_gym.obs_cirs_step()
         obs_list, mov_reward, done_list, info_list = self.ir_gym.obs_move_reward_list(action, **kwargs)
 
         reward_list = [x+y for x, y in zip(rvo_reward_list, mov_reward)]
