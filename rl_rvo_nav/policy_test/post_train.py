@@ -93,10 +93,6 @@ class post_train:
 
                 n += 1
 
-                # if self.save:
-                #     self.env.ir_gym.save_ani(figure_save_path, ani_save_path, ani_name=policy_name)
-                #     break
-
                 if np.min(info):
                     sn+=1
                     
