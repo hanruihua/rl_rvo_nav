@@ -4,7 +4,7 @@ The gym extension for the multi-robot navigation environment based on the [intel
 
 ## Installation
 
-> cd drl_rvo_nav/gym_env
+> cd drl_rvo_nav/gym_env  
 > pip3 install -e .
 
 
