@@ -63,16 +63,16 @@ class multi_PPObuf:
 
     def finish_path(self, last_val=0):
 
-        path_slice = slice(self.path_start_idx, self.ptr)
-        rews = np.append(self.rew_buf[path_slice], last_val)
-        vals = np.append(self.val_buf[path_slice], last_val)
+        path_slice = slice(self.path_start_idx, self.ptr)  # (0, 151, None)
+        rews = np.append(self.rew_buf[path_slice], last_val) # rews: (152, ), self.rew_buf: (500,)
+        vals = np.append(self.val_buf[path_slice], last_val) # vals: (152, ), self.val_buf: (500,)
         
         # the next two lines implement GAE-Lambda advantage calculation
-        deltas = rews[:-1] + self.gamma * vals[1:] - vals[:-1]
-        self.adv_buf[path_slice] = discount_cumsum(deltas, self.gamma * self.lam)
+        deltas = rews[:-1] + self.gamma * vals[1:] - vals[:-1] # (151, )
+        self.adv_buf[path_slice] = discount_cumsum(deltas, self.gamma * self.lam) # self.adv_buf: (500, )
         
         # the next line computes rewards-to-go, to be targets for the value function
-        self.ret_buf[path_slice] = discount_cumsum(rews, self.gamma)[:-1]        
+        self.ret_buf[path_slice] = discount_cumsum(rews, self.gamma)[:-1] # self.ret_buf: (500,)        
         self.path_start_idx = self.ptr
 
     def get(self):     
