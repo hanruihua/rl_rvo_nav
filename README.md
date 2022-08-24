@@ -90,9 +90,12 @@ If you find this code or paper is helpful, you can star this repository and cite
 
 ```
 @article{han2022reinforcement,
-  title={Reinforcement Learned Distributed Multi-Robot Navigation with Reciprocal Velocity Obstacle Shaped Rewards},
+  title={Reinforcement Learned Distributed Multi-Robot Navigation With Reciprocal Velocity Obstacle Shaped Rewards},
   author={Han, Ruihua and Chen, Shengduo and Wang, Shuaijun and Zhang, Zeqing and Gao, Rui and Hao, Qi and Pan, Jia},
   journal={IEEE Robotics and Automation Letters},
+  volume={7},
+  number={3},
+  pages={5896--5903},
   year={2022},
   publisher={IEEE}
 }
