@@ -12,6 +12,7 @@ setup(
         'transforms3d',
         'gym',
         'Pathlib'
+        'mpi4py',
     ],
     description="source code of the paper",
     author="Han Ruihua",
