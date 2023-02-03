@@ -11,7 +11,7 @@ setup(
         'scipy',
         'transforms3d',
         'gym',
-        'Pathlib'
+        'Pathlib',
         'mpi4py',
     ],
     description="source code of the paper",
