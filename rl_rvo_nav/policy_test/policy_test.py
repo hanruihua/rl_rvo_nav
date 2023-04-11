@@ -5,6 +5,10 @@ import pickle
 import sys
 from rl_rvo_nav.policy_test.post_train import post_train
 import argparse
+import os
+from os.path import dirname, abspath
+
+os.environ["KMP_DUPLICATE_LIB_OK"]  =  "TRUE"
 
 parser = argparse.ArgumentParser(description='policy test')
 parser.add_argument('--policy_type', default='drl')
@@ -26,7 +30,9 @@ parser.add_argument('--once', action='store_true')
 policy_args = parser.parse_args()
 
 cur_path = Path(__file__).parent.parent 
-model_base_path = str(cur_path) + '/' + policy_args.model_path
+
+# model_base_path = str(cur_path) + '/' + policy_args.model_path
+model_base_path = dirname(dirname(abspath(__file__))) + '/' + policy_args.model_path
 args_path = model_base_path + '/' + policy_args.arg_name
 
 # args from train
