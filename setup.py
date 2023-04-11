@@ -10,7 +10,7 @@ setup(
         'numpy',
         'scipy',
         'transforms3d',
-        'gym',
+        'gym==0.20.0',
         'Pathlib',
         'mpi4py',
     ],
