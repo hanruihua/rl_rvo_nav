@@ -73,7 +73,7 @@ You can test the policy trained from the previous steps by following command:
 python policy_test.py --robot_number 10 --dis_mode 3 --model_name YOUR_MODEL_NAME --render
 ```
 
-**Note1:** dis_mode, 3, circle scenario; 2 random scenario
+**Note1:** dis_mode, 3, circle scenario; 2 random scenario   
 **Note2:** YOUR_MODEL_NAME refer to the path and name of the check point file in the *policy_train/model_save* folder
 
 ## Pretrained model
