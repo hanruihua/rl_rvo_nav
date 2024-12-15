@@ -53,7 +53,7 @@ or
 python train_process_s1.py
 ```
 
-- Second state: continue to train in circle scenario with 10 robots.
+- Second stage: continue to train in circle scenario with 10 robots.
 
 ```
 python train_process.py --robot_number 10 --train_epoch 2000 --load_name YOUR_MODEL_PATH --use_gpu --con_train
