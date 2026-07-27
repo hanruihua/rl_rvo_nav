@@ -86,9 +86,9 @@ python policy_test_pre_train.py --render
 
 ## Citation
 
-If you find this code or paper is helpful, you can star this repository and cite our paper:
+If you find this code or paper helpful, please consider starring this repository and citing our paper:
 
-```
+```bibtex
 @article{han2022reinforcement,
   title={Reinforcement Learned Distributed Multi-Robot Navigation With Reciprocal Velocity Obstacle Shaped Rewards},
   author={Han, Ruihua and Chen, Shengduo and Wang, Shuaijun and Zhang, Zeqing and Gao, Rui and Hao, Qi and Pan, Jia},
@@ -98,6 +98,17 @@ If you find this code or paper is helpful, you can star this repository and cite
   pages={5896--5903},
   year={2022},
   publisher={IEEE}
+}
+```
+
+This project uses [IR-SIM](https://github.com/hanruihua/ir-sim). If you use the simulator in your work, please also cite:
+
+```bibtex
+@article{han2026ir,
+  title={IR-SIM: A Lightweight Skill-Native Simulator for Navigation, Learning, and Benchmarking},
+  author={Han, Ruihua and Wang, Shuai and Li, Chengyang and Gao, Rui and Wang, Xinyi and Liu, Zhe and Li, Guoliang and Lu, Yupu and Hao, Qi and Pan, Jia and Zhao, Hengshuang},
+  journal={arXiv preprint arXiv:2606.08729},
+  year={2026}
 }
 ```
 
